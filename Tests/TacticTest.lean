@@ -2,6 +2,7 @@ import Mathlib.Algebra.Group.Defs
 import Mathlib.Data.Real.Sqrt
 import PremiseSelection.Tactic
 import PremiseSelection.Widget
+import Tests.temp
 
 open PremiseSelection
 
@@ -16,10 +17,14 @@ variable [CommSemigroup G]
 
 section Simple
 
+set_option trace.suggestPremises.debug true
+
 example : b = a * b ↔ a = 1 := by {
+  show_premise_list
   suggest_premises -- suggests rw [eq_comm]
   rw [eq_comm]
-  suggest_premises -- suggests apply mul_left_eq_self
+  show_premise_list
+  -- suggest_premises -- suggests apply mul_left_eq_self
   apply mul_left_eq_self
 }
 
@@ -66,6 +71,7 @@ section Harder
 open Real
 
 example (x y : ℝ) (hx : 0 ≤ x) : sqrt (x / y) = sqrt x / sqrt y := by {
+  show_premise_list
   -- suggest_premises
   sorry
 }

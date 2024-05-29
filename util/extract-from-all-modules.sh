@@ -4,7 +4,8 @@ PARAMS=$@
 PARAMS_NAME=`echo $PARAMS | sed 's/ /./g'`
 OUT_DIR=data/extracted.$PARAMS_NAME
 SCRIPT_DIR=`dirname $0`
-MATHLIB=lake-packages/mathlib/Mathlib
+# MATHLIB=lake-packages/mathlib/Mathlib <- Old directory
+MATHLIB=.lake/packages/mathlib/Mathlib # <- New directory
 
 mkdir $OUT_DIR
 

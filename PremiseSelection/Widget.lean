@@ -23,6 +23,17 @@ structure Item where
   score : Int
   deriving ToJson, FromJson, Inhabited
 
+def itemToString : Item → String
+  | ⟨n, s⟩ => s!"({n}, {s})"
+
+def itemToMessageData : Item → MessageData
+  | ⟨n, s⟩ => m!"({n}, {s})"
+
+
+instance : ToString Item := ⟨itemToString⟩
+
+instance : ToMessageData Item := ⟨itemToMessageData⟩
+
 structure WidgetProps where
   items : Array Item
   stx : Lsp.Range
