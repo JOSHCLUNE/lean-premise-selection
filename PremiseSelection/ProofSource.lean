@@ -44,7 +44,7 @@ appear. We take into account `ToAdditive` name translations. -/
 def filterUserPremises (premises : Multiset Name) (proofSource : String)
   : Multiset Name := Id.run <| do
   let appearsInProof (s : String) : Bool := s.isSubstrOf proofSource
-  let mut result := Std.RBMap.empty
+  let mut result := Batteries.RBMap.empty
   for (p, c) in premises do
     let pLast := (Syntax.splitNameLit p.toString.toSubstring).reverse.head!.toString
     if appearsInProof pLast then
@@ -64,7 +64,7 @@ def filterUserPremisesFromFile
     if output.stdout.isEmpty then
       return false
     return true
-  let mut result := Std.RBMap.empty
+  let mut result := Batteries.RBMap.empty
   for (p, c) in premises do
     if ← appearsInFile p.toString then
       result := result.insert p c

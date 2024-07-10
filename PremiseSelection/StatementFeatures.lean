@@ -10,19 +10,19 @@ Input: the goal state
 Ouput: the theorem statement as an expr
 
  -/
-open Std
+open Batteries
 
-def Std.RBMap.modify' [Ord κ] (k : κ) (fn : Option α → Option α) (r : Std.RBMap κ α compare) :=
+def Batteries.RBMap.modify' [Ord κ] (k : κ) (fn : Option α → Option α) (r : Batteries.RBMap κ α compare) :=
   match fn <| r.find? k with
   | none => r.erase k
   | some v => r.insert k v
 
-def Std.RBMap.mergeBy [Ord κ] (fn : κ → α → α → α) (r1 r2 : Std.RBMap κ α compare) : Std.RBMap κ α compare :=
+def Batteries.RBMap.mergeBy [Ord κ] (fn : κ → α → α → α) (r1 r2 : Batteries.RBMap κ α compare) : Batteries.RBMap κ α compare :=
   r2.foldl (fun r1 k v2 => r1.modify' k (fun | none => some v2 | some v1 => some (fn k v1 v2))) r1
 
 namespace PremiseSelection
 
-def Multiset (α : Type) [Ord α] := Std.RBMap α Nat compare
+def Multiset (α : Type) [Ord α] := Batteries.RBMap α Nat compare
 
 variable {α : Type} [Ord α]
 
@@ -71,7 +71,7 @@ structure StatementFeatures where
   trigramCounts : Multiset Trigram := ∅
 
 instance : ForIn M (Multiset α) (α × Nat) :=
-  show ForIn _ (Std.RBMap _ _ _) _ by infer_instance
+  show ForIn _ (Batteries.RBMap _ _ _) _ by infer_instance
 
 def Multiset.toList (m : Multiset α) : List α :=
   m.foldl (fun l x _ => x :: l) []
@@ -122,8 +122,10 @@ def StatementFeatures.toTFeatures (f : StatementFeatures) : Array String :=
 def immediateName (e : Expr) : Option Name :=
   if let .const n _ := e then
     some n
-  else if let some n := e.natLit? then
-    some <| toString n
+  else if let some n := e.rawNatLit? then
+    some <| (toString n).toName
+  else if let some n := e.nat? then
+    some <| (toString n).toName
   else
     none
 

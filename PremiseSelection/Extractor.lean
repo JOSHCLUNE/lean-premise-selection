@@ -189,9 +189,12 @@ private def extractPremisesFromModule
   let mut countFound := 0
   let mut countTotal := 0
   for cinfo in moduleData.constants do
+    dbg_trace "for-loop iteration in extractPremisesFromModule (cinfo.name: {cinfo.name})"
     let data? ← extractPremisesFromConstantInfo minDepth maxDepth cinfo
     if let some data := data? then
       countTotal := countTotal + 1
+      if countTotal > 1000 then
+        throwError "countTotal unacceptably high for module {moduleName}"
       let mut filteredPremises : Multiset Name := ∅
       let (filterResult, found) ← filter data.name data.premises
       filteredPremises := filterResult
@@ -200,6 +203,7 @@ private def extractPremisesFromModule
       if !source && !filteredPremises.isEmpty then
         countFoundAndNotEmpty := countFoundAndNotEmpty + 1
         let filteredData := { data with premises := filteredPremises }
+        dbg_trace "About to insert filteredData"
         insert filteredData
       if source then
         if found then

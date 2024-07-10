@@ -54,6 +54,7 @@ example (n : ℕ) (m : ℤ) : 2^(n + 1) * m = 2 * 2^n * m := by {
   -- library_search (declaration uses sorry)
   suggest_premises -- suggests rw [pow_succ]
   rw [pow_succ]
+  sorry
 }
 
 example (a b c : ℕ) : a * b = c ↔ c = b * a := by {

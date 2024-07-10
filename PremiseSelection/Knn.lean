@@ -3,7 +3,7 @@ import PremiseSelection.Data
 
 namespace PremiseSelection
 
-open Std
+open Batteries
 
 def similarity (fCounts : HashMap String Int) (nTheorems : Nat) (f1 f2 : Features) : Float :=
   let fI := HashSet.intersection f1 f2
