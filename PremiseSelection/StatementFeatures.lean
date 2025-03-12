@@ -1,6 +1,7 @@
 import Lean
 import Mathlib.Control.Monad.Writer
 import PremiseSelection.Utils
+import Batteries.Data.RBMap.Basic
 open Lean
 /-!
 

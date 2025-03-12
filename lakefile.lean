@@ -3,12 +3,12 @@ open Lake DSL
 
 package leanPremiseSelection
 
-require «mathlib» from git "https://github.com/leanprover-community/mathlib4" @ "v4.8.0-rc2"
+require «mathlib» from git "https://github.com/leanprover-community/mathlib4" @ "v4.16.0"
 
-require «Duper» from git "https://github.com/leanprover-community/duper.git" @ "dev"
+require «Duper» from git "https://github.com/leanprover-community/duper.git" @ "f9895f953953ff3553ebf2425fefec7c4de539ea"
 
 require proofwidgets from git
-  "https://github.com/EdAyers/ProofWidgets4"@"v0.0.36"
+  "https://github.com/EdAyers/ProofWidgets4"@"v0.0.51"
 
 @[default_target]
 lean_lib PremiseSelection

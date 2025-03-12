@@ -317,7 +317,7 @@ elab "extract_premises_from_ctx" : command =>
   runAndPrint <| extractPremisesFromCtx
 
 syntax (name := extract_premises_to_files)
-  "extract_premises_to_files l:" str " f:" str : command
+  "extract_premises_to_files" "l:" str "f:" str : command
 
 @[command_elab «extract_premises_to_files»]
 unsafe def elabExtractPremisesToFiles : CommandElab

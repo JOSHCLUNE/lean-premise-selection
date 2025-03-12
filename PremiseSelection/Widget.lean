@@ -12,7 +12,7 @@ def Array.chooseM [Alternative m] [Monad m] (f : α → m β) (xs : Array α) : 
 
 namespace PremiseSelection
 
-@[widget]
+@[widget_module]
 def premiseSelectionWidget : UserWidgetDefinition := {
   name := "Premise Selection"
   javascript := include_str ".." / "widget" / "dist" / "index.js"
@@ -219,7 +219,8 @@ def saveWidget (stx : Syntax) (xs : Array Item) : TacticM Unit := do
   let uri := System.Uri.pathToUri fn
   let r : Lsp.Range ← syntaxToLspRange stx
   let ps : WidgetProps := {items := xs, stx := r, uri}
-  saveWidgetInfo `PremiseSelection.premiseSelectionWidget (toJson ps) stx
-  return ()
+  throwError "saveWidget not updated"
+  -- savePanelWidgetInfo `PremiseSelection.premiseSelectionWidget (toJson ps) stx
+  -- return ()
 
 end PremiseSelection
