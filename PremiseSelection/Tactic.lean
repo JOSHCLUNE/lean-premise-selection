@@ -12,9 +12,9 @@ open Lean Meta Elab Tactic Term
 initialize registerTraceClass `suggestPremises.debug
 
 def trainedForest :=
-  -- loadFromFile "data/forest.source.nb.small"
+  loadFromFile "data/forest.source.nb.small"
   -- loadFromFile "util/train-and-predict-rf.extracted.+all.+n.+b.6745.forest.old"
-  loadFromFile "util/train-and-predict-rf.extracted.+all.+n.+b.29541.forest"
+  -- loadFromFile "util/train-and-predict-rf.extracted.+all.+n.+b.29541.forest"
 
 syntax (name := suggestPremises) "suggest_premises" : tactic
 syntax (name := showPremiseList) "show_premise_list" : tactic
