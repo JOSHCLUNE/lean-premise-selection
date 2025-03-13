@@ -189,7 +189,7 @@ private def extractPremisesFromModule
   let mut countFound := 0
   let mut countTotal := 0
   for cinfo in moduleData.constants do
-    dbg_trace "for-loop iteration in extractPremisesFromModule (cinfo.name: {cinfo.name})"
+    -- dbg_trace "for-loop iteration in extractPremisesFromModule (cinfo.name: {cinfo.name})"
     let data? ← extractPremisesFromConstantInfo minDepth maxDepth cinfo
     if let some data := data? then
       countTotal := countTotal + 1
