@@ -1,6 +1,6 @@
-import PremiseSelection.Tree
+import KNNPremiseSelection.Tree
 
-namespace PremiseSelection
+namespace KNNPremiseSelection
 
 def Forest.add (nTrees : Nat) (part initThreshold optimLevel : Float)
     (forest : List Tree) (e : Example) : IO (List Tree) := do
@@ -64,4 +64,4 @@ def stats (forest : List Tree) : String :=
   s!"Examples per leaf, min: {avgMinNodeE}, max: {avgMaxNodeE}, avg {avgAvgNodeE}\n" ++
   s!"(Labels / Examples) per leaf, min: {avgMinNodeLdivE}, max: {avgMaxNodeLdivE}, avg {avgAvgNodeLdivE}\n"
 
-end PremiseSelection
+end KNNPremiseSelection

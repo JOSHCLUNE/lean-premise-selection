@@ -5,8 +5,8 @@ import Mathlib.Tactic
 import Mathlib.Algebra.Group.Defs
 import Mathlib.Algebra.BigOperators.Ring
 import Mathlib.Data.Real.Sqrt
-import PremiseSelection.Tactic
-import PremiseSelection.Widget
+import KNNPremiseSelection.Tactic
+import KNNPremiseSelection.Widget
 
 set_option trace.suggestPremises.debug true
 

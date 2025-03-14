@@ -1,9 +1,9 @@
 import Mathlib.Algebra.Group.Defs
 import Mathlib.Data.Real.Sqrt
-import PremiseSelection.Tactic
-import PremiseSelection.Widget
+import KNNPremiseSelection.Tactic
+import KNNPremiseSelection.Widget
 
-open PremiseSelection
+open KNNPremiseSelection
 
 /-
 NOTE: Usually, `suggest_premises` won't be left in the proof script, it will be
@@ -20,7 +20,7 @@ set_option trace.suggestPremises.debug true
 
 /-
 example : b = a * b ↔ a = 1 := by {
-  show_premise_list
+  show_premise_list_knn
   suggest_premises -- suggests rw [eq_comm]
   rw [eq_comm]
   show_premise_list

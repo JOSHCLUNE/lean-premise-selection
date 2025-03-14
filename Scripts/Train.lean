@@ -1,6 +1,6 @@
-import PremiseSelection
+import KNNPremiseSelection
 
-open PremiseSelection
+open KNNPremiseSelection
 
 def main (args : List String) : IO Unit := do
   let train_features       := args.get! 0

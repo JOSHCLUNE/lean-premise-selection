@@ -1,3 +1,0 @@
-import PremiseSelection.Extractor
-import PremiseSelection.Forest
-import PremiseSelection.Tactic

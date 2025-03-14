@@ -1,6 +1,6 @@
-import PremiseSelection.Extractor
+import KNNPremiseSelection.Extractor
 
-open Lean Lean.Meta PremiseSelection
+open Lean Lean.Meta KNNPremiseSelection
 
 /-- Run this file to extract premises as follows:
 

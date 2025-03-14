@@ -1,5 +1,5 @@
 import Lean
-import PremiseSelection.StatementFeatures
+import KNNPremiseSelection.StatementFeatures
 
 open Lean System
 
@@ -37,7 +37,7 @@ def proofSource (thm : Name) (json : Json) : MetaM (Option String) := do
     | _ => return none
   return none
 
-namespace PremiseSelection
+namespace KNNPremiseSelection
 
 /-- Given a list of premises and proof text, get rid of the ones that do not
 appear. We take into account `ToAdditive` name translations. -/
@@ -70,4 +70,4 @@ def filterUserPremisesFromFile
       result := result.insert p c
   return result
 
-end PremiseSelection
+end KNNPremiseSelection

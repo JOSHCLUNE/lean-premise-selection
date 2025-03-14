@@ -1,6 +1,6 @@
-import PremiseSelection.Utils
+import KNNPremiseSelection.Utils
 
-namespace PremiseSelection
+namespace KNNPremiseSelection
 
 open Lean Batteries List
 
@@ -158,4 +158,4 @@ def avgCover10 (rankings : List (List α)) (true : List (List α)) :=
   let coverages := rankingsTrue.map (fun (x, y) => (cover 10) x y)
   average coverages
 
-end PremiseSelection
+end KNNPremiseSelection

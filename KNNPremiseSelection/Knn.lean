@@ -1,7 +1,7 @@
-import PremiseSelection.Utils
-import PremiseSelection.Data
+import KNNPremiseSelection.Utils
+import KNNPremiseSelection.Data
 
-namespace PremiseSelection
+namespace KNNPremiseSelection
 
 open Batteries
 
@@ -50,4 +50,4 @@ def predict (trainData testData : List Example) (nNeighbours : Nat) :=
   let predictOne := predictOne trainData nNeighbours
   testData.mapParallel predictOne
 
-end PremiseSelection
+end KNNPremiseSelection

@@ -1,11 +1,11 @@
 import Lean
-import Duper
-import PremiseSelection.Forest
-import PremiseSelection.StatementFeatures
-import PremiseSelection.Knn
-import PremiseSelection.Widget
+import Hammer
+import KNNPremiseSelection.Forest
+import KNNPremiseSelection.StatementFeatures
+import KNNPremiseSelection.Knn
+import KNNPremiseSelection.Widget
 
-namespace PremiseSelection
+namespace KNNPremiseSelection
 
 open Lean Meta Elab Tactic Term
 
@@ -37,8 +37,22 @@ def getGoalFeatures : TacticM (List String) := do
   let targetFeatures ← getStatementFeatures target
   let hypsFeatures ← getArgsFeatures hyps
 
-  let features := Array.data <| targetFeatures.toTFeatures ++
-    hypsFeatures.concatMap StatementFeatures.toHFeatures
+  let features := Array.toList <| targetFeatures.toTFeatures ++
+    hypsFeatures.flatMap StatementFeatures.toHFeatures
+  return features
+
+def getGoalFeaturesOfMVarId (m : MVarId) : MetaM (List String) := m.withContext do
+  let mType ← inferType $ Expr.mvar m
+  let mType ← instantiateMVars mType
+  let mut hyps := []
+  let ctx ← getLCtx
+  for h in ctx do
+    let hyp ← inferType h.type
+    hyps := hyps ++ [hyp]
+  let targetFeatures ← getStatementFeatures mType
+  let hypsFeatures ← getArgsFeatures hyps
+  let features := Array.toList <| targetFeatures.toTFeatures ++
+    hypsFeatures.flatMap StatementFeatures.toHFeatures
   return features
 
 -- Note: Use only lowercase for the names here
@@ -74,7 +88,7 @@ def suggestPremisesTactic : Tactic := fun stx => do
   let p :=
     p.filter (fun (name, score) => score > scoreThreshold && blacklist.all (· ≠ name.toLower))
   let p : List Item ← p.filterMapM (fun (name, score) => (do
-    let name ← PremiseSelection.resolveConst name.toName
+    let name ← KNNPremiseSelection.resolveConst name.toName
     return (some {name, score})
   ) <|> (pure none))
   let p := p.toArray
@@ -97,7 +111,7 @@ def evalShowPremiseList : Tactic := fun stx => do
   let p :=
     p.filter (fun (name, score) => score > scoreThreshold && blacklist.all (· ≠ name.toLower)) -- whitelist.contains name)
   let p : List Item ← p.filterMapM (fun (name, score) => (do
-    let name ← PremiseSelection.resolveConst name.toName
+    let name ← KNNPremiseSelection.resolveConst name.toName
     return (some {name, score})
   ) <|> (pure none))
   IO.println s!"Item List: {p}"
@@ -128,7 +142,7 @@ def evalCreateAutoCall : Tactic
   let p :=
     p.filter (fun (name, score) => score > scoreThreshold && blacklist.all (· ≠ name.toLower))
   let p : List Ident ← p.filterMapM (fun (name, _) => (do
-    let name ← PremiseSelection.resolveConst name.toName
+    let name ← KNNPremiseSelection.resolveConst name.toName
     return (some (mkIdent name))
   ) <|> (pure none))
   let pStx : TSyntaxArray ``Auto.hintelem ← p.toArray.mapM (fun ident => `(Auto.hintelem| $ident:term))
@@ -152,7 +166,7 @@ def evalCreateAutoCallKnn : Tactic
   let p := predictOne train_data 100 (HashSet.ofList features)
   let p : List Ident ← p.filterMapM (fun name => (do
     if blacklist.all (· ≠ name.toLower) then
-      let name ← PremiseSelection.resolveConst name.toName
+      let name ← KNNPremiseSelection.resolveConst name.toName
       return (some (mkIdent name))
     else
       return none
@@ -183,5 +197,32 @@ elab "print_smt_features" : tactic => do
   for (⟨n1, n2⟩, count) in features.bigramCounts do
     dbg_trace (s!"{n1}/{n2}", count)
 
+def knnSelector (train_features_file train_labels_file : String) : PremiseSelection.Selector := fun goal config => do
+  let maxSuggestions := Option.getD config.maxSuggestions 16
+  let features ← getGoalFeaturesOfMVarId goal
+  let train_data ← loadLabeled train_features_file train_labels_file
+  let p := predictOneWithScore train_data maxSuggestions (HashSet.ofList features)
+  let p ← p.filterMapM (fun (name, score) => (do
+    if blacklist.all (· ≠ name.toLower) then
+      pure $ some ⟨← KNNPremiseSelection.resolveConst name.toName, score⟩
+    else
+      return none
+  ) <|> (pure none))
+  return p.toArray
 
-end PremiseSelection
+def forestSelector (trainedForestFile : String) : PremiseSelection.Selector := fun goal config => do
+  let trainedForest ← loadFromFile trainedForestFile
+  let maxSuggestions := Option.getD config.maxSuggestions 16
+  let features ← getGoalFeaturesOfMVarId goal
+  let e := unlabeled features
+  let p := rankingWithScores trainedForest e
+  let p :=
+    p.filter (fun (name, score) => score > scoreThreshold && blacklist.all (· ≠ name.toLower)) -- whitelist.contains name)
+  let p := p.take maxSuggestions
+  let p : List PremiseSelection.Suggestion ← p.filterMapM (fun (name, score) => (do
+    let name ← KNNPremiseSelection.resolveConst name.toName
+    return (some ⟨name, Float.ofInt score⟩)
+  ) <|> (pure none))
+  return p.toArray
+
+end KNNPremiseSelection

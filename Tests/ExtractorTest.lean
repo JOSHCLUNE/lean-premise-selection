@@ -1,5 +1,5 @@
 import Mathlib.Algebra.Group.Basic
-import PremiseSelection.Extractor
+import KNNPremiseSelection.Extractor
 
 extract_premises_from_thm comp_mul_right
 

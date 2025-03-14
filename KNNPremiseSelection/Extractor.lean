@@ -1,9 +1,9 @@
 import Lean
 import Mathlib.Control.Monad.Writer
-import PremiseSelection.StatementFeatures
-import PremiseSelection.ProofSource
+import KNNPremiseSelection.StatementFeatures
+import KNNPremiseSelection.ProofSource
 
-namespace PremiseSelection
+namespace KNNPremiseSelection
 
 open Lean Lean.Elab Lean.Elab.Term Lean.Elab.Command Lean.Meta System
 
@@ -329,4 +329,4 @@ unsafe def elabExtractPremisesToFiles : CommandElab
 
 end Commands
 
-end PremiseSelection
+end KNNPremiseSelection

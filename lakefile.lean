@@ -5,13 +5,14 @@ package leanPremiseSelection
 
 require «mathlib» from git "https://github.com/leanprover-community/mathlib4" @ "v4.16.0"
 
-require «Duper» from git "https://github.com/leanprover-community/duper.git" @ "f9895f953953ff3553ebf2425fefec7c4de539ea"
+require QuerySMT from git
+  "https://github.com/JOSHCLUNE/LeanSMTParser.git" @ "842ca2a4a780f1a3589c930ef82ebb08368682f7"
 
 require proofwidgets from git
   "https://github.com/EdAyers/ProofWidgets4"@"v0.0.51"
 
 @[default_target]
-lean_lib PremiseSelection
+lean_lib KNNPremiseSelection
 
 @[default_target]
 lean_lib Tests

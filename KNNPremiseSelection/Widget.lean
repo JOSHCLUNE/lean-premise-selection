@@ -10,7 +10,7 @@ def Array.chooseM [Alternative m] [Monad m] (f : α → m β) (xs : Array α) : 
   return acc
 
 
-namespace PremiseSelection
+namespace KNNPremiseSelection
 
 @[widget_module]
 def premiseSelectionWidget : UserWidgetDefinition := {
@@ -92,11 +92,11 @@ def ors [Alternative M] : (xs : List (M α))  → M α
   | [] => failure
   | (h :: t) => h <|> (ors t)
 
-def createConst (n : Name): TacticM Name := do
+def createConst (n : Name): MetaM Name := do
   let _ ← mkFun n
   return n
 
-def resolveConst (n : Name) : TacticM Name :=
+def resolveConst (n : Name) : MetaM Name :=
   [n, capitalizeFirstLetter n] |>.map createConst |> ors
 
 def tryApply (n : Name): TacticM (TSyntax `tactic) := do
@@ -223,4 +223,4 @@ def saveWidget (stx : Syntax) (xs : Array Item) : TacticM Unit := do
   -- savePanelWidgetInfo `PremiseSelection.premiseSelectionWidget (toJson ps) stx
   -- return ()
 
-end PremiseSelection
+end KNNPremiseSelection

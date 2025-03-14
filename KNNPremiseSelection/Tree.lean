@@ -1,8 +1,8 @@
-import PremiseSelection.Data
+import KNNPremiseSelection.Data
 
 abbrev SplitRule := String
 
-namespace PremiseSelection
+namespace KNNPremiseSelection
 
 inductive Tree : Type
   | Node : SplitRule × Tree × Tree → Tree
@@ -154,4 +154,4 @@ def Tree.maxSizeOfLeavesLdivE (t : Tree) :=
 def Tree.minSizeOfLeavesLdivE (t : Tree) :=
   minList t.sizesOfLeavesLdivE
 
-end PremiseSelection
+end KNNPremiseSelection

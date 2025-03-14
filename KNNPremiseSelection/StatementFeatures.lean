@@ -1,6 +1,6 @@
 import Lean
 import Mathlib.Control.Monad.Writer
-import PremiseSelection.Utils
+import KNNPremiseSelection.Utils
 import Batteries.Data.RBMap.Basic
 open Lean
 /-!
@@ -21,7 +21,7 @@ def Batteries.RBMap.modify' [Ord κ] (k : κ) (fn : Option α → Option α) (r 
 def Batteries.RBMap.mergeBy [Ord κ] (fn : κ → α → α → α) (r1 r2 : Batteries.RBMap κ α compare) : Batteries.RBMap κ α compare :=
   r2.foldl (fun r1 k v2 => r1.modify' k (fun | none => some v2 | some v1 => some (fn k v1 v2))) r1
 
-namespace PremiseSelection
+namespace KNNPremiseSelection
 
 def Multiset (α : Type) [Ord α] := Batteries.RBMap α Nat compare
 
@@ -180,4 +180,4 @@ def getThmAndArgsFeatures (e : Expr)
       let argsFeats ← getArgsFeatures args.data
       return (thmFeats, argsFeats)
 
-end PremiseSelection
+end KNNPremiseSelection

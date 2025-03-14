@@ -1,5 +1,5 @@
 import Lean
-import PremiseSelection.ProofSource
+import KNNPremiseSelection.ProofSource
 
 open Lean Meta Elab System
 
