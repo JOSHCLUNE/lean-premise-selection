@@ -8,9 +8,6 @@ require «mathlib» from git "https://github.com/leanprover-community/mathlib4" 
 require QuerySMT from git
   "https://github.com/JOSHCLUNE/LeanSMTParser.git" @ "842ca2a4a780f1a3589c930ef82ebb08368682f7"
 
-require proofwidgets from git
-  "https://github.com/EdAyers/ProofWidgets4"@"v0.0.51"
-
 @[default_target]
 lean_lib KNNPremiseSelection
 
