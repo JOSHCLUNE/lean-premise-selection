@@ -12,11 +12,13 @@ def Array.chooseM [Alternative m] [Monad m] (f : α → m β) (xs : Array α) : 
 
 namespace KNNPremiseSelection
 
+/-
 @[widget_module]
 def premiseSelectionWidget : UserWidgetDefinition := {
   name := "Premise Selection"
   javascript := include_str ".." / "widget" / "dist" / "index.js"
 }
+-/
 
 structure Item where
   name : Name
