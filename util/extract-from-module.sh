@@ -5,7 +5,7 @@ OUT_DIR=`realpath $2`
 PARAMS=${@:3}
 LABELS=$OUT_DIR/$MODULE.labels
 FEATURES=$OUT_DIR/$MODULE.features
-LEAN_EXTRACTOR=PremiseSelection/ExtractorRunner.lean
+LEAN_EXTRACTOR=KNNPremiseSelection/ExtractorRunner.lean
 
 export LEAN_PATH=.lake/build/lib
 export LEAN_PATH=$LEAN_PATH:.lake/packages/mathlib/.lake/build/lib
