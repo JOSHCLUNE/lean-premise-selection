@@ -16,6 +16,7 @@ export LEAN_PATH=$LEAN_PATH:.lake/packages/importGraph/.lake/build/lib
 export LEAN_PATH=$LEAN_PATH:.lake/packages/proofwidgets/.lake/build/lib
 export LEAN_PATH=$LEAN_PATH:.lake/packages/plausible/.lake/build/lib
 export LEAN_PATH=$LEAN_PATH:.lake/packages/LeanSearchClient/.lake/build/lib
+export LEAN_PATH=$LEAN_PATH:.lake/packages/Cli/.lake/build/lib
 
 lean --run --memory=4096 --timeout=100000000000 \
     $LEAN_EXTRACTOR \
