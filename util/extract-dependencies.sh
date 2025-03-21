@@ -1,5 +1,5 @@
 #!/bin/bash
-MATHLIB=lake-packages/mathlib/Mathlib
+MATHLIB=.lake/packages/mathlib/Mathlib
 find $MATHLIB -name '*.lean' ! -name "Mathlib.lean" | while read f; do
     {
     module=`echo $f | sed 's/.*Mathlib/Mathlib/g; s/.lean$//g; s/\//./g'`
