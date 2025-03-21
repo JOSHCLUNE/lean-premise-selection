@@ -62,20 +62,7 @@ def blacklist := [
   "eq.trans",
   "eq.symm",
   "rfl",
-  "or.elim",
-  -- Additional items not part of original blacklist
-  "propext",
-  "iff.rfl",
-  "congrarg",
-  "or.caseson", "or.inl", "or.inr",
-  "exists.caseson", "exists.intro",
-  "funext",
-  "iff_self",
-  "eq_self",
-  "iff.symm", "iff.intro",
-  "and.intro", "and.left", "and.right",
-  "of_eq_true", "eq_true",
-  "eq_false", "eq_false'"
+  "or.elim"
 ]
 
 def scoreThreshold := 1
