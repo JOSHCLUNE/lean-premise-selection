@@ -17,8 +17,8 @@ INIT_THRESHOLD=2.0
 OPTIM_LEVEL=1.0
 
 RF_DIR=../lean-premise-selection
-TRAIN_BINARY=$RF_DIR/build/bin/Train
-PREDICT_BINARY=$RF_DIR/build/bin/Predict
+TRAIN_BINARY=$RF_DIR/.lake/build/bin/Train
+PREDICT_BINARY=$RF_DIR/.lake/build/bin/Predict
 cd $RF_DIR && lake build && cd $DIR &&
 echo "Log being written to $LOG" &&
 echo "Training on $TRAIN" &&
