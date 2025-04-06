@@ -5,8 +5,7 @@ package leanPremiseSelection
 
 require «mathlib» from git "https://github.com/leanprover-community/mathlib4" @ "v4.16.0"
 
-require QuerySMT from git
-  "https://github.com/JOSHCLUNE/LeanSMTParser.git" @ "842ca2a4a780f1a3589c930ef82ebb08368682f7"
+require «premise-selection» from git "https://github.com/hanwenzhu/premise-selection" @ "v4.16.0"
 
 @[default_target]
 lean_lib KNNPremiseSelection

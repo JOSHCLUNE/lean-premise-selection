@@ -1,5 +1,5 @@
 import Lean
-import Hammer
+import PremiseSelection
 import KNNPremiseSelection.Forest
 import KNNPremiseSelection.StatementFeatures
 import KNNPremiseSelection.Knn
@@ -120,6 +120,7 @@ def evalShowPremiseListKnn : Tactic := fun stx => do
   IO.println s!"Time to construct item list: {(← IO.monoMsNow) - startTime}ms"
   return ()
 
+/-
 @[tactic createAutoCall]
 def evalCreateAutoCall : Tactic
 | `(createAutoCall | create_auto_call%$stxRef) => withMainContext do
@@ -183,6 +184,7 @@ elab "print_smt_features" : tactic => do
   let features := hyps_features ++ target_features
   for (⟨n1, n2⟩, count) in features.bigramCounts do
     dbg_trace (s!"{n1}/{n2}", count)
+-/
 
 def knnSelector (train_features_file train_labels_file : String) : PremiseSelection.Selector := fun goal config => do
   let maxSuggestions := Option.getD config.maxSuggestions 16
