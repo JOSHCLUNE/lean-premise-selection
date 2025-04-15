@@ -3,9 +3,9 @@ open Lake DSL
 
 package leanPremiseSelection
 
-require «mathlib» from git "https://github.com/leanprover-community/mathlib4" @ "v4.16.0"
+require «mathlib» from git "https://github.com/leanprover-community/mathlib4" @ "v4.18.0"
 
-require «premise-selection» from git "https://github.com/hanwenzhu/premise-selection" @ "v4.16.0"
+require «premise-selection» from git "https://github.com/hanwenzhu/premise-selection" @ "v4.18.0"
 
 @[default_target]
 lean_lib KNNPremiseSelection
